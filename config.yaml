@@ -1,0 +1,43 @@
+name: "Hexesoft-BTicino"
+description: "Bridge MQTT professionale per domotica Bticino SCS"
+version: "1.0.0"
+slug: "hexesoft_bticino"
+arch:
+  - aarch64
+  - amd64
+  - armv7
+host_network: true
+startup: application
+boot: auto
+
+# 1. OPZIONI DI DEFAULT (Il file options.json verrà creato così)
+options:
+  bticino:
+    host: "192.168.1.35"
+    port: 20000
+    password: "12345"
+    LogUnknownDevices: true
+  mqtt:
+    host: "core-mosquitto"
+    port: 1883
+    username: ""
+    password: ""
+    base_topic: "bticino_bridge"
+    discovery_prefix: "homeassistant"
+  log_level: "info"
+
+# 2. DEFINIZIONE DEI CAMPI (Schema per l'interfaccia di HA)
+schema:
+  bticino:
+    host: str
+    port: int
+    password: password   # Campo nascosto per sicurezza
+    LogUnknownDevices: bool
+  mqtt:
+    host: str
+    port: int
+    username: str
+    password: password   # Campo nascosto per sicurezza
+    base_topic: str
+    discovery_prefix: str
+  log_level: list(info|debug|warning|error)

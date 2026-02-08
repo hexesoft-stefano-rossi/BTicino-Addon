@@ -1,0 +1,15 @@
+{
+    "bticino": {
+        "host": "192.168.10.36",
+        "port": 20000,
+        "password": "Orchidea17",
+        "log_unknown_devices": false
+    },
+    "mqtt": {
+        "host": "192.168.10.163",
+        "port": 1883,
+        "base_topic": "bticino_bridge",
+        "username": "stefano",
+        "password": "12345678Aa"
+    }
+}
