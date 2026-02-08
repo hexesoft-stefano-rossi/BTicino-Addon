@@ -1,16 +1,19 @@
-# Immagine super leggera per far girare l'eseguibile
 FROM alpine:latest
 
-# Installa le librerie necessarie per .NET su Alpine e bash per lo script
-RUN apk add --no-cache libstdc++ libgcc icu-libs bash jq
+# Installa bash, jq (per leggere i parametri di HA) e sed (per pulire i file Windows)
+RUN apk add --no-cache libstdc++ libgcc icu-libs bash jq sed
 
 WORKDIR /app
 
-# Copiamo solo il necessario dal tuo PC al container
+# Copia solo i file che servono al programma per girare
 COPY Hexesoft-BTicino .
 COPY appsettings.json .
 COPY devices.json .
 COPY run.sh /
+
+# --- SOLUZIONE ERRORE FATALE ---
+# Converte il file run.sh dal formato Windows (CRLF) al formato Linux (LF)
+RUN sed -i 's/\r$//' /run.sh
 
 # Permessi di esecuzione
 RUN chmod +x /app/Hexesoft-BTicino
