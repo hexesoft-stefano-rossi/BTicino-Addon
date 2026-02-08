@@ -1,13 +1,87 @@
-Hexesoft-BTicino è un gateway software ad alte prestazioni scritto in C# (.NET) che funge da ponte tra il sistema domotico BTicino/Legrand MyHome (SCS) e il protocollo MQTT.
+# Hexesoft Bticino Bridge
 
-Il sistema permette di integrare un impianto fisico MyHome con piattaforme di Home Automation moderne come Home Assistant, gestendo la traduzione bidirezionale dei comandi e degli stati.
+.NET Worker Service that bridges MQTT <-> Bticino SCS, designed to run in Docker/Linux (Home Assistant friendly).
 
-Architettura a Doppia Sessione: Gestisce separatamente la sessione Monitor (eventi in tempo reale) e la sessione Comandi (invio richieste).
+## Features (planned)
+- Bidirectional MQTT communication
+- SCS gateway communication
+- Reconnect/retry strategies
+- Structured logging and configuration
+- Optional Home Assistant topic conventions / discovery
 
-Gestione Code Asincrone: I comandi vengono accodati e inviati sequenzialmente (FIFO) per rispettare i tempi di pacing del bus SCS ed evitare collisioni.
+## Configuration
+Configuration is provided via appsettings.json and environment variables (Docker-friendly).
 
-Autenticazione HMAC Robusta: Supporta sia connessioni trusted che l'autenticazione sicura HMAC-SHA256 richiesta dai gateway moderni (F454, MyHOMEServer1, etc.).
+1. Luci (lights)
+Dispositivi semplici On/Off.
 
-Auto-Discovery: Scansione automatica del bus all'avvio per sincronizzare gli stati.
+name: Nome visualizzato su Home Assistant.
 
-Astrazione a Oggetti: Ogni dispositivo fisico (Luce, Termostato, Tapparella) è mappato su una classe C# dedicata.
+bus: Numero della dorsale/interfaccia (di solito 0 per impianto locale, 1, 2... per espansioni).
+
+a: Ambiente (da 0 a 9).
+
+pl: Punto Luce (da 0 a 9).
+
+2. Tapparelle / Automazioni (shutters)
+bus, a, pl: Come per le luci.
+
+isAdvanced:
+
+true: Se il motore supporta nativamente la percentuale (es. "Vai al 50%").
+
+false: Se è un motore vecchio tipo (Solo Su/Giù).
+
+fullRunTimeSec: Tempo in secondi per apertura completa (serve per calcolare la percentuale simulata se il motore non è Advanced).
+
+3. Termostati (thermostats)
+Gestione Clima (WHO=4).
+
+name: Nome della zona.
+
+zone: Numero della zona termica configurata (da 1 a 99).
+
+hasFan:
+
+true: Se è un Fan Coil (mostra comandi velocità ventola 1-2-3-Auto).
+
+false: Se è un radiatore o riscaldamento a pavimento (nasconde le ventole).
+
+4. Energia (energy_meters)
+Gestione Consumi (WHO=18).
+
+name: Cosa stiamo misurando.
+
+id: Il numero progressivo del toroide/misuratore (solitamente da 1 in su).
+
+model: (Opzionale) Modello del dispositivo (es. F521 per centrale con memoria, F520 per misuratore istantaneo).
+
+
+Spiegazione per l'utente (campi Binary Sensors)
+bus, a, pl: L'indirizzo fisico dove Bticino legge il contatto.
+
+deviceClass (Opzionale): Dice ad Home Assistant che icona usare.
+
+"door": Icona porta (Aperta/Chiusa).
+
+"window": Icona finestra.
+
+"problem": Segnala un guasto (OK/Problema).
+
+"power": C'è corrente/Non c'è corrente.
+
+"connectivity": Connesso/Disconnesso.
+
+(Se lasciato vuoto, usa un'icona generica ON/OFF).
+
+
+## Development
+- .NET 8/10 Worker Service
+- MQTT: MQTTnet
+- Logging: Microsoft.Extensions.Logging (optionally Serilog)
+
+## Project rules
+- Async only (no blocking calls)
+- DI everywhere
+- Services split: MQTT / SCS / Router
+- Channels for internal message passing
