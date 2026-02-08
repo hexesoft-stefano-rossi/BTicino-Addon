@@ -1,6 +1,4 @@
-#!/usr/bin/with-conten-env bashio
-
+#!/bin/sh
 echo "Avvio Hexesoft BTicino Bridge..."
-
-# Questo comando lancia il tuo file unico prodotto da VS
-./Hexesoft-BTicino
+# Avvia l'eseguibile nella cartella app
+exec /app/Hexesoft-BTicino
