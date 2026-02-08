@@ -1,4 +1,8 @@
 #!/bin/bash
-echo "Avvio Hexesoft BTicino Bridge..."
-# Esegue il binario indicando il percorso completo
-/app/Hexesoft-BTicino
+echo "--- AVVIO HEXESOFT BTICINO BRIDGE ---"
+
+# Ci spostiamo nella cartella dove risiede il programma
+cd /app
+
+# Avviamo l'eseguibile direttamente
+./Hexesoft-BTicino

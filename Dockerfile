@@ -1,20 +1,21 @@
-# Usa l'immagine ufficiale Microsoft ottimizzata per Alpine e .NET 9
+# Questa immagine riconosce automaticamente se sei su Raspberry o PC
 FROM mcr.microsoft.com/dotnet/runtime:9.0-alpine
 
-# Installa bash e jq per lo script di avvio di Home Assistant
+# Installa bash e jq (necessari per HA)
 RUN apk add --no-cache bash jq
 
 WORKDIR /app
 
-# Copia il tuo file unico e gli altri file
+# Copia i file
 COPY Hexesoft-BTicino .
 COPY appsettings.json .
 COPY devices.json .
 COPY run.sh /
 
-# Permessi di esecuzione e pulizia file Windows
+# Sistema i permessi e il formato Windows
 RUN chmod +x /app/Hexesoft-BTicino && \
     chmod +x /run.sh && \
     sed -i 's/\r$//' /run.sh
 
+# Avvio
 CMD [ "/run.sh" ]
