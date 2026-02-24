@@ -1,5 +1,5 @@
 name: "Hexesoft-BTicino"
-description: "Bridge MQTT professionale per domotica Bticino SCS"
+description: "BTicino SCS in Home Assistant"
 version: "1.0.0"
 slug: "hexesoft_bticino"
 arch:
@@ -12,9 +12,9 @@ boot: auto
 
 options:
   bticino:
-    host: "192.168.1.35"
+    host: ""
     port: 20000
-    password: "12345"
+    password: ""
     logunknowndevices: true
   
   scan_settings:
@@ -75,7 +75,7 @@ schema:
         a: int(0,15)
         pl: int(0,15)
         invert: bool
-        device_class: list(none|door|window|motion|smoke|moisture|opening|presence)
+        device_class: list(none|door|window|motion|smoke|moisture|opening|presence|problem|power)
         model: str?
     
   buttons:
@@ -99,7 +99,7 @@ schema:
         bus: int(0,15)
         a: int(0,15)
         pl: int(0,15)
-        timer: list(none|0.5s|2s|30s|1m|2m|3m|4m|5m|10m|15m)
+        timer: list(none|0.5s|2s|30s|1m|2m|3m|4m|5m|10m|15m)?
         model: str?
     
   relays:
@@ -124,7 +124,7 @@ schema:
         bus: int(0,15)
         a: int(0,15)
         pl: int(0,15)
-        timer: list(none|0.5s|2s|30s|1m|2m|3m|4m|5m|10m|15m)
+        timer: list(none|0.5s|2s|30s|1m|2m|3m|4m|5m|10m|15m)?
         model: str?
     
   thermostats:
