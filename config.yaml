@@ -11,29 +11,29 @@ startup: application
 boot: auto
 
 options:
-  Bticino:
+  bticino:
     host: "192.168.1.35"
     port: 20000
     password: "12345"
     logunknowndevices: true
   
-  ScanSettings:
+  scan_settings:
     skiplight: false
     skipshutter: false
     skipthermostat: false
     disableenergymonitor: false
     energypollingintervalseconds: 60
   
-  BinarySensors: []
-  Buttons: []
-  EnergyMeters: []
-  Lights: []
-  Relays: []
-  Shutters: []
-  Switches: []
-  Thermostats: []
+  binary_sensors: []
+  buttons: []
+  energy_meters: []
+  lights: []
+  relays: []
+  shutters: []
+  switches: []
+  thermostats: []
   
-  Mqtt:
+  mqtt:
     host: "core-mosquitto"
     port: 1883
     username: ""
@@ -41,26 +41,26 @@ options:
     base_topic: "bticino_bridge"
     discovery_prefix: "homeassistant"
   
-  System:
+  system_settings:
     log_level: "info"
 
 
 schema:
   
-  Bticino:
+  bticino:
     host: str
     port: int
     password: password
     logunknowndevices: bool
   
-  ScanSettings:
+  scan_settings:
     skiplight: bool
     skipshutter: bool
     skipthermostat: bool
     disableenergymonitor: bool
     energypollingintervalseconds: int(30,3600) # Minimo 30 secondi, massimo 1 ora
   
-  BinarySensors:
+  binary_sensors:
     - name: str
       bus: int(0,15)
       a: int(0,15)
@@ -69,20 +69,20 @@ schema:
       device_class: list(none|door|window|motion|smoke|moisture|opening|presence)
       model: str?
     
-  Buttons:
+  buttons:
     - name: str
       bus: int(0,15)
       a: int(0,15)
       pl: int(0,15)
       model: str?
     
-  EnergyMeters:
+  energy_meters:
     - name: str
       bus: int(0,15)
       id: int
       model: str?
     
-  Lights:
+  lights:
     - name: str
       bus: int(0,15)
       a: int(0,15)
@@ -90,21 +90,21 @@ schema:
       timer: list(none|0.5s|2s|30s|1m|2m|3m|4m|5m|10m|15m)
       model: str?
     
-  Relays:
+  relays:
     - name: str
       bus: int(0,15)
       id: int
       invert: bool?
       model: str?
     
-  Shutters:
+  shutters:
     - name: str
       bus: int(0,15)
       a: int(0,15)
       pl: int(0,15)
       model: str?
     
-  Switches:
+  switches:
     - name: str
       bus: int(0,15)
       a: int(0,15)
@@ -112,7 +112,7 @@ schema:
       timer: list(none|0.5s|2s|30s|1m|2m|3m|4m|5m|10m|15m)
       model: str?
     
-  Thermostats:
+  thermostats:
     - name: str
       zone: int(0,99)
       canHeat: bool
@@ -120,7 +120,7 @@ schema:
       manageFan: bool
       model: str?
       
-  Mqtt:
+  mqtt:
     host: str
     port: int
     username: str?
@@ -129,5 +129,5 @@ schema:
     discovery_prefix: str
 
   # Gruppo 4: Scansioni e Log
-  System:
+  system_settings:
     log_level: list(info|debug|warning|error)
