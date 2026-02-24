@@ -58,7 +58,7 @@ schema:
     skipshutter: bool
     skipthermostat: bool
     disableenergymonitor: bool
-    energypollingintervalseconds: int(30, 3600) # Minimo 30 secondi, massimo 1 ora
+    energypollingintervalseconds: int(30,3600) # Minimo 30 secondi, massimo 1 ora
   
   # --- 3. GRUPPO: DISPOSITIVI (Contenitore per le liste) ---
   BinarySensors:
