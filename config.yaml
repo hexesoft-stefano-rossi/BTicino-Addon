@@ -58,36 +58,36 @@ schema:
     skipshutter: bool
     skipthermostat: bool
     disableenergymonitor: bool
-    energypollingintervalseconds: int(30,3600) # Minimo 30 secondi, massimo 1 ora
+    energypollingintervalseconds: int # Minimo 30 secondi, massimo 1 ora
   
   # --- 3. GRUPPO: DISPOSITIVI (Contenitore per le liste) ---
   BinarySensors:
     - name: str
-      bus: int(0,15)
-      a: int(0,15)
-      pl: int(0,15)
+      bus: int
+      a: int
+      pl: int
       invert: bool
       device_class: list(none|door|window|motion|smoke|moisture|opening|presence)
       model: str?
     
   Buttons:
     - name: str
-      bus: int(0,15)
-      a: int(0,15)
-      pl: int(0,15)
+      bus: int
+      a: int
+      pl: int
       model: str?
     
   EnergyMeters:
     - name: str
-      bus: int(0,15)
+      bus: int
       id: int
       model: str?
     
   Lights:
     - name: str
-      bus: int(0,15)
-      a: int(0,15)
-      pl: int(0,15)
+      bus: int
+      a: int
+      pl: int
       timer: list(none|0.5s|2s|30s|1m|2m|3m|4m|5m|10m|15m)
       model: str?
     
@@ -100,22 +100,22 @@ schema:
     
   Shutters:
     - name: str
-      bus: int(0,15)
-      a: int(0,15)
-      pl: int(0,15)
+      bus: int
+      a: int
+      pl: int
       model: str?
     
   Switches:
     - name: str
-      bus: int(0,15)
-      a: int(0,15)
-      pl: int(0,15)
+      bus: int
+      a: int
+      pl: int
       timer: list(none|0.5s|2s|30s|1m|2m|3m|4m|5m|10m|15m)
       model: str?
     
   Thermostats:
     - name: str
-      zone: int(0,99)
+      zone: int
       canHeat: bool
       canCool: bool
       manageFan: bool
