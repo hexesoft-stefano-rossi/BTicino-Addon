@@ -10,134 +10,124 @@ host_network: true
 startup: application
 boot: auto
 
-# 1. OPZIONI DI DEFAULT (Valori precompilati al primo avvio)
+# 1. OPZIONI DI DEFAULT
 options:
-  bticino_settings:
+  Bticino:
     host: "192.168.1.35"
     port: 20000
     password: "12345"
+    logunknowndevices: true
   
-  scan_settings:
-    SkipLightScan: false
-    SkipShutterScan: false
-    SkipThermostatScan: false
-    DisableEnergyMonitor: false
-    EnergyPollingIntervalSeconds: 60
+  ScanSettings:
+    skiplight: false
+    skipshutter: false
+    skipthermostat: false
+    disableenergymonitor: false
+    energypollingintervalseconds: 60
   
-  # Gruppi per tipologia di Device (Tutti vuoti di default)
-  devices_binary_sensor: []
-  devices_button: []
-  devices_energy_meter: []
-  devices_light: []
-  devices_relay: []
-  devices_shutter: []
-  devices_switch: []
-  devices_thermostat: []
+  # Questo creerà un'unica grande sezione "Devices" espandibile nell'interfaccia UI
+  Devices:
+    BinarySensors: []
+    Buttons: []
+    EnergyMeters: []
+    Lights: []
+    Relays: []
+    Shutters: []
+    Switches: []
+    Thermostats: []
   
-  mqtt_settings:
+  Mqtt:
     host: "core-mosquitto"
     port: 1883
     username: ""
     password: ""
     base_topic: "bticino_bridge"
     discovery_prefix: "homeassistant"
-  
-  system_settings:
-    scan_type: "auto"
-    log_level: "info"
-    log_unknown_devices: true
 
-# 2. DEFINIZIONE DEI CAMPI E GRUPPI UI (Regole per l'interfaccia)
+# 2. DEFINIZIONE DEI CAMPI E GRUPPI UI
 schema:
-  # --- SETTING BTICINO ---
-  bticino_settings:
+  # --- 1. GRUPPO: BTICINO ---
+  Bticino:
     host: str
     port: int
     password: password
+    LogUnknownDevices: bool
   
-  # --- IMPOSTAZIONI DI SCANSIONE ---
-  scan_settings:
-    SkipLightScan: bool                   # Diventa un Checkbox
-    SkipShutterScan: bool                 # Diventa un Checkbox
-    SkipThermostatScan: bool              # Diventa un Checkbox
-    DisableEnergyMonitor: bool            # Diventa un Checkbox
-    EnergyPollingIntervalSeconds: int
+  # --- 2. GRUPPO: SCANSIONE ---
+  ScanSettings:
+    skiplight: bool
+    skipshutter: bool
+    skipthermostat: bool
+    disableenergymonitor: bool
+    energypollingintervalseconds: int(30, 3600) # Minimo 30 secondi, massimo 1 ora
   
-  # --- TIPI DI DEVICE ---
-  devices_binary_sensor:
-    - name: str
-      bus: int
-      a: int
-      pl: int
-      invert: bool
-      # Menu a tendina per le classi standard di Home Assistant. "none" per ometterla.
-      device_class: list(none|door|window|motion|smoke|moisture|opening|presence)
-      model: str?
-  
-  devices_button:
-    - name: str
-      bus: int
-      a: int
-      pl: int
-      model: str?
-  
-  devices_energy_meter:
-    - name: str
-      bus: int
-      id: int
-      model: str?
-  
-  devices_light:
-    - name: str
-      bus: int
-      a: int
-      pl: int
-      # Menu a tendina con i valori esatti estratti dal tuo Light.cs
-      timer: list(none|0.5s|2s|30s|1m|2m|3m|4m|5m|10m|15m)
-      model: str?
-  
-  devices_relay:
-    - name: str
-      bus: int
-      id: int
-      invert: bool? 
-      model: str?
-  
-  devices_shutter:
-    - name: str
-      bus: int
-      a: int
-      pl: int
-      model: str?
-  
-  devices_switch:
-    - name: str
-      bus: int
-      a: int
-      pl: int
-      # Menu a tendina con i valori esatti estratti dal tuo Switch.cs
-      timer: list(none|0.5s|2s|30s|1m|2m|3m|4m|5m|10m|15m)
-      model: str?
-  
-  devices_thermostat:
-    - name: str
-      zone: int
-      canHeat: bool                       # Diventa un Checkbox
-      canCool: bool                       # Diventa un Checkbox
-      manageFan: bool                     # Diventa un Checkbox
-      model: str?
+  # --- 3. GRUPPO: DISPOSITIVI (Contenitore per le liste) ---
+  Devices:
+    BinarySensors:
+      - name: str
+        bus: int(0, 15)
+        a: int(0, 15)
+        pl: int(0, 15)
+        invert: bool
+        device_class: list(none|door|window|motion|smoke|moisture|opening|presence)
+        model: str?
+    
+    Buttons:
+      - name: str
+        bus: int(0, 15)
+        a: int(0, 15)
+        pl: int(0, 15)
+        model: str?
+    
+    EnergyMeters:
+      - name: str
+        bus: int(0, 15)
+        id: int
+        model: str?
+    
+    Lights:
+      - name: str
+        bus: int(0, 15)
+        a: int(0, 15)
+        pl: int(0, 15)
+        timer: list(none|0.5s|2s|30s|1m|2m|3m|4m|5m|10m|15m)
+        model: str?
+    
+    Relays:
+      - name: str
+        bus: int
+        id: int
+        invert: bool?
+        model: str?
+    
+    Shutters:
+      - name: str
+        bus: int(0, 15)
+        a: int(0, 15)
+        pl: int(0, 15)
+        model: str?
+    
+    Switches:
+      - name: str
+        bus: int(0, 15)
+        a: int(0, 15)
+        pl: int(0, 15)
+        timer: list(none|0.5s|2s|30s|1m|2m|3m|4m|5m|10m|15m)
+        model: str?
+    
+    Thermostats:
+      - name: str
+        zone: int(0, 99)
+        canHeat: bool
+        canCool: bool
+        manageFan: bool
+        model: str?
       
-  # --- MQTT ---
-  mqtt_settings:
+  # --- 4. GRUPPO: MQTT ---
+  Mqtt:
     host: str
     port: int
     username: str?
     password: password?
     base_topic: str
-    discovery_prefix: str
-    
-  # --- SISTEMA E LOG ---
-  system_settings:
-    scan_type: list(auto|manual|disabled) # Menu a tendina
-    log_level: list(info|debug|warning|error) # Menu a tendina
-    log_unknown_devices: bool             # Diventa un Checkbox
+    discovery_prefix: strbox
