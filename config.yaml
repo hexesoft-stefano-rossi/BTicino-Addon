@@ -62,66 +62,65 @@ schema:
     energypollingintervalseconds: int(30, 3600) # Minimo 30 secondi, massimo 1 ora
   
   # --- 3. GRUPPO: DISPOSITIVI (Contenitore per le liste) ---
-  Devices:
-    BinarySensors:
-      - name: str
-        bus: int(0,15)
-        a: int(0,15)
-        pl: int(0,15)
-        invert: bool
-        device_class: list(none|door|window|motion|smoke|moisture|opening|presence)
-        model: str?
+  BinarySensors:
+    - name: str
+      bus: int(0,15)
+      a: int(0,15)
+      pl: int(0,15)
+      invert: bool
+      device_class: list(none|door|window|motion|smoke|moisture|opening|presence)
+      model: str?
     
-    Buttons:
-      - name: str
-        bus: int(0,15)
-        a: int(0,15)
-        pl: int(0,15)
-        model: str?
+  Buttons:
+    - name: str
+      bus: int(0,15)
+      a: int(0,15)
+      pl: int(0,15)
+      model: str?
     
-    EnergyMeters:
-      - name: str
-        bus: int(0,15)
-        id: int
-        model: str?
+  EnergyMeters:
+    - name: str
+      bus: int(0,15)
+      id: int
+      model: str?
     
-    Lights:
-      - name: str
-        bus: int(0,15)
-        a: int(0,15)
-        pl: int(0,15)
-        timer: list(none|0.5s|2s|30s|1m|2m|3m|4m|5m|10m|15m)
-        model: str?
+  Lights:
+    - name: str
+      bus: int(0,15)
+      a: int(0,15)
+      pl: int(0,15)
+      timer: list(none|0.5s|2s|30s|1m|2m|3m|4m|5m|10m|15m)
+      model: str?
     
-    Relays:
-      - name: str
-        bus: int
-        id: int
-        invert: bool?
-        model: str?
+  Relays:
+    - name: str
+      bus: int
+      id: int
+      invert: bool?
+      model: str?
     
-    Shutters:
-      - name: str
-        bus: int(0,15)
-        a: int(0,15)
-        pl: int(0,15)
-        model: str?
+  Shutters:
+    - name: str
+      bus: int(0,15)
+      a: int(0,15)
+      pl: int(0,15)
+      model: str?
     
-    Switches:
-      - name: str
-        bus: int(0,15)
-        a: int(0,15)
-        pl: int(0,15)
-        timer: list(none|0.5s|2s|30s|1m|2m|3m|4m|5m|10m|15m)
-        model: str?
+  Switches:
+    - name: str
+      bus: int(0,15)
+      a: int(0,15)
+      pl: int(0,15)
+      timer: list(none|0.5s|2s|30s|1m|2m|3m|4m|5m|10m|15m)
+      model: str?
     
-    Thermostats:
-      - name: str
-        zone: int(0,99)
-        canHeat: bool
-        canCool: bool
-        manageFan: bool
-        model: str?
+  Thermostats:
+    - name: str
+      zone: int(0,99)
+      canHeat: bool
+      canCool: bool
+      manageFan: bool
+      model: str?
       
   # --- 4. GRUPPO: MQTT ---
   Mqtt:
