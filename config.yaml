@@ -24,14 +24,22 @@ options:
     disableenergymonitor: false
     energypollingintervalseconds: 60
   
-  binary_sensors: []
-  buttons: []
-  energy_meters: []
-  lights: []
-  relays: []
-  shutters: []
-  switches: []
-  thermostats: []
+  binary_sensors:
+    devices: []
+  buttons:
+    devices: []
+  energy_meters:
+    devices: []
+  lights:
+    devices: []
+  relays:
+    devices: []
+  shutters:
+    devices: []
+  switches:
+    devices: []
+  thermostats:
+    devices: []
   
   mqtt:
     host: "core-mosquitto"
@@ -61,64 +69,72 @@ schema:
     energypollingintervalseconds: int(30,3600) # Minimo 30 secondi, massimo 1 ora
   
   binary_sensors:
-    - name: str
-      bus: int(0,15)
-      a: int(0,15)
-      pl: int(0,15)
-      invert: bool
-      device_class: list(none|door|window|motion|smoke|moisture|opening|presence)
-      model: str?
+    devices:
+      - name: str
+        bus: int(0,15)
+        a: int(0,15)
+        pl: int(0,15)
+        invert: bool
+        device_class: list(none|door|window|motion|smoke|moisture|opening|presence)
+        model: str?
     
   buttons:
-    - name: str
-      bus: int(0,15)
-      a: int(0,15)
-      pl: int(0,15)
-      model: str?
+    devices:
+      - name: str
+        bus: int(0,15)
+        a: int(0,15)
+        pl: int(0,15)
+        model: str?
     
   energy_meters:
-    - name: str
-      bus: int(0,15)
-      id: int
-      model: str?
+    devices:
+      - name: str
+        bus: int(0,15)
+        id: int
+        model: str?
     
   lights:
-    - name: str
-      bus: int(0,15)
-      a: int(0,15)
-      pl: int(0,15)
-      timer: list(none|0.5s|2s|30s|1m|2m|3m|4m|5m|10m|15m)
-      model: str?
+    devices:
+      - name: str
+        bus: int(0,15)
+        a: int(0,15)
+        pl: int(0,15)
+        timer: list(none|0.5s|2s|30s|1m|2m|3m|4m|5m|10m|15m)
+        model: str?
     
   relays:
-    - name: str
-      bus: int(0,15)
-      id: int
-      invert: bool?
-      model: str?
+    devices:
+      - name: str
+        bus: int(0,15)
+        id: int
+        invert: bool?
+        model: str?
     
   shutters:
-    - name: str
-      bus: int(0,15)
-      a: int(0,15)
-      pl: int(0,15)
-      model: str?
+    devices:
+      - name: str
+        bus: int(0,15)
+        a: int(0,15)
+        pl: int(0,15)
+        model: str?
     
   switches:
-    - name: str
-      bus: int(0,15)
-      a: int(0,15)
-      pl: int(0,15)
-      timer: list(none|0.5s|2s|30s|1m|2m|3m|4m|5m|10m|15m)
-      model: str?
+    devices:
+      - name: str
+        bus: int(0,15)
+        a: int(0,15)
+        pl: int(0,15)
+        timer: list(none|0.5s|2s|30s|1m|2m|3m|4m|5m|10m|15m)
+        model: str?
     
   thermostats:
-    - name: str
-      zone: int(0,99)
-      canHeat: bool
-      canCool: bool
-      manageFan: bool
-      model: str?
+    devices:
+      - name: str
+        zone: int(0,99)
+        canHeat: bool
+        canCool: bool
+        manageFan: bool
+        model: str?
       
   mqtt:
     host: str
