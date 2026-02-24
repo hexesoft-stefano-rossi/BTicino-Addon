@@ -26,15 +26,14 @@ options:
     energypollingintervalseconds: 60
   
   # Questo creerà un'unica grande sezione "Devices" espandibile nell'interfaccia UI
-  Devices:
-    BinarySensors: []
-    Buttons: []
-    EnergyMeters: []
-    Lights: []
-    Relays: []
-    Shutters: []
-    Switches: []
-    Thermostats: []
+  BinarySensors: []
+  Buttons: []
+  EnergyMeters: []
+  Lights: []
+  Relays: []
+  Shutters: []
+  Switches: []
+  Thermostats: []
   
   Mqtt:
     host: "core-mosquitto"
