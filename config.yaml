@@ -107,7 +107,6 @@ schema:
       - name: str
         bus: int(0,15)
         id: int
-        invert: bool?
         model: str?
     
   shutters:
@@ -131,9 +130,9 @@ schema:
     devices:
       - name: str
         zone: int(0,99)
-        canHeat: bool
-        canCool: bool
-        manageFan: bool
+        canHeat: bool?
+        canCool: bool?
+        manageFan: bool?
         model: str?
       
   mqtt:
