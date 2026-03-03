@@ -1,11 +1,10 @@
-name: "Hexesoft-BTicino"
-description: "BTicino SCS in Home Assistant"
-version: "1.0.2"
+name: "Hexesoft BTicino"
+description: "Bridge BTicino SCS in Home Assistant"
+version: "1.0.3"
 slug: "hexesoft_bticino"
 arch:
   - aarch64
   - amd64
-  - armv7
 host_network: true
 startup: application
 boot: auto
@@ -141,6 +140,5 @@ schema:
     base_topic: str
     discovery_prefix: str
 
-  # Gruppo 4: Scansioni e Log
   system_settings:
     log_level: list(info|debug|warning|error)
